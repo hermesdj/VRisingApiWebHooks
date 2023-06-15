@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Il2CppSystem;
 using VRisingServerApiPlugin.attributes;
 using VRisingServerApiPlugin.attributes.methods;
 using VRisingServerApiPlugin.attributes.parameters;
@@ -24,10 +23,10 @@ public class WebHookHttpEndpoint
     }
 
     [HttpPost(@"/{id}")]
-    public WebHookEndpoint UpdateEndpoint([UrlParam("id")] Il2CppSystem.Guid id, [RequestBody] UpdateWebHookBody body)
+    public WebHookEndpoint UpdateEndpoint([UrlParam("id")] Guid id, [RequestBody] UpdateWebHookBody body)
     {
         var endpoint =
-            WebHookConfig.Instance.UpdateEndpoint(Guid.Parse(id.ToString()), body.Url, body.Description,
+            WebHookConfig.Instance.UpdateEndpoint(System.Guid.Parse(id.ToString()), body.Url, body.Description,
                 body.EnabledEvents, body.Disable);
 
         if (endpoint == null)
@@ -39,9 +38,9 @@ public class WebHookHttpEndpoint
     }
 
     [HttpGet(@"/{id}")]
-    public WebHookEndpoint GetEndpoint([UrlParam("id")] Il2CppSystem.Guid id)
+    public WebHookEndpoint GetEndpoint([UrlParam("id")] Guid id)
     {
-        var endpoint = WebHookConfig.Instance.GetEndpoint(Guid.Parse(id.ToString()));
+        var endpoint = WebHookConfig.Instance.GetEndpoint(System.Guid.Parse(id.ToString()));
 
         if (endpoint == null)
         {
@@ -53,12 +52,12 @@ public class WebHookHttpEndpoint
 
     [HttpDelete(
         pattern: @"/{id}")]
-    public DeleteWebHookResponse DeleteEndpoint([UrlParam("id")] Il2CppSystem.Guid id)
+    public DeleteWebHookResponse DeleteEndpoint([UrlParam("id")] Guid id)
     {
         return new DeleteWebHookResponse
         {
-            Id = Guid.Parse(id.ToString()),
-            Deleted = WebHookConfig.Instance.DeleteEndpoint(Guid.Parse(id.ToString()))
+            Id = System.Guid.Parse(id.ToString()),
+            Deleted = WebHookConfig.Instance.DeleteEndpoint(System.Guid.Parse(id.ToString()))
         };
     }
 
