@@ -3,6 +3,7 @@ using BepInEx.Unity.IL2CPP;
 using HarmonyLib;
 using VRisingApiWebHooks.WebHook;
 using VRisingServerApiPlugin.command;
+using VRisingServerEvents.Events;
 
 namespace VRisingApiWebHooks;
 
@@ -18,6 +19,7 @@ public class WebHookPlugin : BasePlugin
         // Plugin startup logic
         WebHookConfig.Initialize();
         CommandRegistry.RegisterAll();
+        EventPublisher.RegisterEventHandlers();
         Log.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} version {MyPluginInfo.PLUGIN_VERSION} is loaded!");
 
         // Harmony patching
